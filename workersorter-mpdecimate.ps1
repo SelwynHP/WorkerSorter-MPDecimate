@@ -9,10 +9,18 @@ else
         $tempName = ($var.BaseName + ".temp" + $var.Extension)
         $ogName
         $tempName
-        #Move-Item $ogName $($path+'\'+$tempName)
         ffmpeg -i $var.FullName -vf mpdecimate -c:v hevc_nvenc -preset 11 -c:a copy -vsync vfr $($path+'\'+$tempName)
-        Remove-Item $var.FullName
+        $tempFile = Get-ChildItem $($path+'\'+$tempName)
+        if($tempFile.Length > 0)
+        {
+            Remove-Item $var.FullName
         Rename-Item $($path+'\'+$tempName).Replace("[", "``[").replace("]", "``]") $ogName
+        }
+        else
+        {
+            Remove-Item $tempFile.FullName
+        }
     }
 }
+#
 $files

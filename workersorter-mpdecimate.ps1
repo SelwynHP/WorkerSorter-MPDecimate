@@ -11,7 +11,7 @@ else
         $tempName
         ffmpeg -i $var.FullName -vf mpdecimate -c:v hevc_nvenc -preset 11 -c:a copy -vsync vfr $($path+'\'+$tempName)
         $tempFile = Get-ChildItem $($path+'\'+$tempName)
-        if($tempFile.Length > 0)
+        if($tempFile.Length -gt 0)
         {
             Remove-Item $var.FullName
         Rename-Item $($path+'\'+$tempName).Replace("[", "``[").replace("]", "``]") $ogName

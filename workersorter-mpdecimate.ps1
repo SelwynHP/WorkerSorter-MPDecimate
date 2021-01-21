@@ -9,7 +9,7 @@ else
         $tempName = ($var.BaseName + ".temp" + $var.Extension)
         $ogName
         $tempName
-        ffmpeg -i $var.FullName -vf mpdecimate -c:v hevc_nvenc -preset 11 -c:a copy -vsync vfr $($path+'\'+$tempName)
+        ffmpeg -i $var.FullName -vf mpdecimate -c:v hevc_nvenc -preset losslesshp -tune lossless -c:a copy -vsync vfr $($path+'\'+$tempName)
         $tempFile = Get-ChildItem $($path+'\'+$tempName)
         if($tempFile.Length -gt 0)
         {
